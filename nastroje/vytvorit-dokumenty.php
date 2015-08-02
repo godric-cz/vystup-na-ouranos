@@ -56,6 +56,10 @@ $postavy = array_reverse($postavy); // vrácení do dopředného pořadí
 $soubory = implode(' ', array_map('escapeshellarg', $postavy));
 $cilSh = escapeshellarg($cil);
 if(!$nahled) {
+  if(!is_dir(dirname($cil))) {
+    mkdir(dirname($cil));
+    if(PHP_SAPI !== 'cli') chmod(dirname($cil), 0777); // zpřístupnit všem, pokud zavoláno přes web
+  }
   $volani = PHP_SAPI === 'cli' ? 'system' : 'exec'; // z commandline vypisovat výstup, na webu ne
   $volani("$converter $parametry $soubory $cilSh 2>&1");
 }

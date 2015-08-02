@@ -1,2 +1,5 @@
-stare
-postavy/sablona/calibri*
+/stare
+/postavy/sablona/calibri*
+/vystupy
+/.*
+!/.gitignore
