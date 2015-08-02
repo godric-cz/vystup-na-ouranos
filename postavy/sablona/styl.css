@@ -9,7 +9,8 @@ body { overflow-y: scroll; }
   height: 100%;
 }
 
-.jmeno { position: absolute; margin: 0; top: 8.5mm; left: 5mm; width: 80mm; font-size: 4.3rem; line-height: 140%; }
+.jmeno { position: absolute; margin: 0; top: 8.5mm; left: 5mm; width: 90mm; font-size: 4.3rem; line-height: 140%; }
+.jmeno.soupis { font-size: 2rem; }
 
 .text { position: absolute; top: 0; left: 99mm; width: 198mm; height: 100%; text-align: justify; }
 

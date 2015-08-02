@@ -1,0 +1,3 @@
+V tomto Larpu budete hrát duši, která se dostává do různých situací a setkává se tam s jinými dušemi. Taková duše je určitá esence člověka, která nenese nezbytně nutně jeho intelekt nebo jeho celkovou osobnost, ale ztělesňuje určité zaměření, určité klíčové vlastnosti, určitý éthos a určitou platónskou formu, kterou člověk naplňuje.
+
+Zbytek toho co dělá člověka, získá duše až po vtělení. Duše je z povahy nesmrtelná, ale těla jsou smrtelná a tak, se duše může vtělit i do různých těl. Různé životy duši mnění a utvářejí, ale duše si nezbytně nenese konkrétní znalost jednotlivých životů - i když vhodné věci můžou způsobit pocit rozpomenutí se a silného deja vu.

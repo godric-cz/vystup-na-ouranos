@@ -10,25 +10,37 @@ $nahled = isset($_GET['nahled']);
 $pdf = isset($_GET['pdf']);
 
 $postavy = [];
+$postavyJmena = [];
 
-foreach(glob(__DIR__.'/../postavy/*.md') as $f) {
+foreach(array_reverse(glob(__DIR__.'/../postavy/*.md')) as $f) { // průchod od konce, protože pro titulní strany je třeba znát jména postav
 
-  // vygenerovat html
+  // vygenerovat proměnné pro šablonu a nahradit md speciální výrazy
+  $md = file_get_contents($f); // markdown text
   $id = basename($f, '.md'); // identifikátor scéna - postava (např. 1a)
-  $html = $parser->text(file_get_contents($f));
+  $idPostavy = substr($id, 1, 1);
+  $idSceny = substr($id, 0, 1);
   $pruh = 'data:image/png;base64,'.base64_encode(file_get_contents(__DIR__.'/../postavy/grafika/'.$id.'.jpg'));
   $sloupceTrida = $nahled ? 'sloupceWeb' : 'sloupceTisk'; // bug: sloupce na tisk fungují jinak jak v prohlížeči a proto je nutné použít hack
+  $md = strtr($md, [
+    '<!-- novy sloupec -->' => '<div style="-webkit-column-break-before:always"></div>',
+    '<!-- jmena postav -->' => isset($postavyJmena[$idPostavy]) ? '# '.implode('<br>', array_reverse($postavyJmena[$idPostavy])) : '',
+    '<!-- uvod -->' => file_get_contents(__DIR__.'/../postavy/spolecne/uvod.md'),
+  ]);
+
+  // odstranění hl. nadpisu a převod do proměnné
   $jmeno = '';
-  $html = preg_replace_callback('@<h1>([^<]+)</h1>@', function($m)use(&$jmeno) {
+  $md = preg_replace_callback('@^# (.*)$@m', function($m)use(&$jmeno) {
     $jmeno = $m[1];
     return '';
-  }, $html);
+  }, $md);
+  $postavyJmena[$idPostavy][] = $jmeno;
+  $jmenoTrida = strpos($jmeno, '<br>') ? 'soupis' : '';
+
+  // přeložit md a použít šablonu
+  $html = $parser->text($md);
   ob_start();
   include __DIR__.'/../postavy/sablona/sablona.php';
   $html = ob_get_clean();
-  $html = strtr($html, [
-    '<!-- novy sloupec -->' => '<div style="-webkit-column-break-before:always"></div>',
-  ]);
 
   // uložit do tmp souboru
   $htmlFile = tempnam(null, null);
@@ -38,6 +50,8 @@ foreach(glob(__DIR__.'/../postavy/*.md') as $f) {
   $postavy[] = $htmlFile;
 
 }
+
+$postavy = array_reverse($postavy); // vrácení do dopředného pořadí
 
 $soubory = implode(' ', array_map('escapeshellarg', $postavy));
 $cilSh = escapeshellarg($cil);
