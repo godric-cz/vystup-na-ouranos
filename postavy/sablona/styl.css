@@ -1,0 +1,56 @@
+
+html, body { margin: 0; background-color: #ccc; }
+body { overflow-y: scroll; }
+
+.stranka { width: 297mm; height: 209.5mm; overflow: hidden; position: relative; margin: auto; background-color: #fff; }
+
+.pruh {
+  position: absolute;
+  height: 100%;
+}
+
+.jmeno { position: absolute; margin: 0; top: 8.5mm; left: 5mm; width: 80mm; font-size: 4.3rem; line-height: 140%; }
+
+.text { position: absolute; top: 0; left: 99mm; width: 198mm; height: 100%; text-align: justify; }
+
+.sloupce {
+  position: absolute;
+  height: 92%;
+  width: 90%;
+  margin: 4% 5%;
+
+  -webkit-column-gap: 10mm;
+  -moz-column-gap: 10mm;
+  /* -webkit-column-rule: 1px solid black; */
+}
+
+.sloupceWeb {
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+}
+
+.sloupceTisk {
+  /* You *must* define a fixed height which is
+   *      large enough to fit the whole content,
+   *      otherwise the layout is unpredictable. */
+  /* already inherited */
+  /* Width and count aren't respected, but you
+   *      have to give at least some dummy value (??). */
+  -webkit-columns: 0 0;
+  /* This is the strange way to define the number of columns:
+   *      50% = 2 columns, 33% = 3 columns 25% = 4 columns */
+  width: 42.5%;
+  /* Gap and rule do work. */
+}
+
+.sloupce > :first-child { margin-top: 0; }
+
+/* TYPO */
+body {
+  font-family: SomeFont;
+  font-size: 4mm;
+  line-height: 1.11rem;
+}
+
+ul, ol { margin: 0; padding: 0 0 0 1.5rem; }
+p, li { margin: 1.11rem 0; }
