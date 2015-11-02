@@ -4,7 +4,7 @@ Larp Výstup na Ouranos. Struktura dokumentů:
 
 - `postavy` texty pro jednotlivé postavy a scény
 - `postavy/spolecne` kusy textů sdílené napříč dokumenty
-- `postavy/sablona` a `postavy\grafika` obsahují podklady pro generování html (z nějž se následně generuje pdf)
+- `postavy/sablona` a `postavy/grafika` obsahují podklady pro generování html (z nějž se následně generuje pdf)
 - `nastroje` skripty zpracovávající texty a šablony a generující pdf
 
 ## Vytvoření pdf
