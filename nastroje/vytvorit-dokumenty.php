@@ -87,6 +87,8 @@ class Pipeline {
 
   /** vytvoří zapisovatelnou složku $dir nebo zhavaruje */
   private function assertDir($dir) {
+    $parent = dirname($dir);
+    if(!is_dir($parent)) $this->assertDir($parent); // rekurzivně vytvořit předky, pokud je to potřeba
     if(!is_dir($dir)) mkdir($dir);
     if(!is_dir($dir)) throw new Exception('nepodařilo se vytvořit složku');
   }
