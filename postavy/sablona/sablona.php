@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <style><?php include __DIR__.'/fonty.php' ?></style>
-  <style><?php include __DIR__.'/styl.css' ?></style>
-  <script><?php include __DIR__.'/hyphenator.js' ?></script>
-  <script><?php include __DIR__.'/cs.js' ?></script>
+  <script src="<?="$sablonaDir/hyphenator.js"?>"></script>
+  <script src="<?="$sablonaDir/cs.js"?>"></script>
+  <link  href="<?="$sablonaDir/styl.css"?>" rel="stylesheet">
   <script>
     Hyphenator.config({
       defaultlanguage: 'cs'

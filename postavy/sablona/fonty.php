@@ -7,17 +7,17 @@ else $font = '/carlito';
 
 @font-face {
   font-family: 'SomeFont';
-  src: url(data:font/truetype;charset=utf-8;base64,<?=base64_encode(file_get_contents(__DIR__.$font.'.ttf'))?>);
+  src: url('<?=$sablonaDir.$font.'.ttf'?>');
 }
 
 @font-face {
   font-family: 'SomeFont';
   font-weight: bold;
-  src: url(data:font/truetype;charset=utf-8;base64,<?=base64_encode(file_get_contents(__DIR__.$font.'b.ttf'))?>);
+  src: url('<?=$sablonaDir.$font.'b.ttf'?>');
 }
 
 @font-face {
   font-family: 'SomeFont';
   font-style: italic;
-  src: url(data:font/truetype;charset=utf-8;base64,<?=base64_encode(file_get_contents(__DIR__.$font.'i.ttf'))?>);
+  src: url('<?=$sablonaDir.$font.'i.ttf'?>');
 }
