@@ -9,6 +9,14 @@ body { overflow-y: scroll; }
   height: 100%;
 }
 
+.pismeno { position: absolute; position: absolute; font-size: 120mm; line-height: 120mm; font-family: SymbolsFont; top: 77mm; left: 25mm; }
+.pismeno::before { position: relative; } /* musí být relative, protože absolute si konvertor přeloží jako mimo obraz a některá písmena nevytiskne */
+.pismeno.a::before { content: "α"; top:  27mm; left:  2mm; }
+.pismeno.b::before { content: "β"; top:   5mm; left: 16mm; font-size: 110mm; }
+.pismeno.c::before { content: "γ"; top:   0mm; left:  9mm; }
+.pismeno.d::before { content: "δ"; top:  27mm; left: 13mm; }
+.pismeno.e::before { content: "ε"; top:  27mm; left: 25mm; }
+
 .jmeno { position: absolute; margin: 0; top: 8.5mm; left: 5mm; width: 90mm; font-size: 4.3rem; line-height: 140%; }
 .jmeno.soupis { font-size: 2rem; }
 

@@ -21,3 +21,8 @@ else $font = '/carlito';
   font-style: italic;
   src: url('<?=$sablonaDir.$font.'i.ttf'?>');
 }
+
+@font-face {
+  font-family: 'SymbolsFont';
+  src: url('<?=$sablonaDir.'/LinLibertine_Rah.ttf'?>');
+}

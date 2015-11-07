@@ -17,6 +17,7 @@
 
   <div class="stranka">
     <img class="pruh" src="<?=$pruh?>">
+    <div class="pismeno <?=$idPostavy?>"></div>
     <h1 class="jmeno <?=$jmenoTrida?>"><?=$jmeno?></h1>
     <div class="text hyphenate">
       <div class="sloupce <?=$sloupceTrida?>">

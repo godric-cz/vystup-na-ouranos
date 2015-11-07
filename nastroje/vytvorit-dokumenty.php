@@ -30,7 +30,7 @@ class Pipeline {
       $id = basename($f, '.md'); // identifikátor scéna - postava (např. 1a)
       $idPostavy = substr($id, 1, 1);
       $idSceny = substr($id, 0, 1);
-      $pruh = $this->wwwRoot . '/postavy/grafika/' . $id . '.jpg';
+      $pruh = $this->pruh($idSceny, $idPostavy);
       $sloupceTrida = $nahled ? 'sloupceWeb' : 'sloupceTisk'; // bug: sloupce na tisk fungují jinak jak v prohlížeči a proto je nutné použít hack
       $md = strtr($md, [
         '<!-- novy sloupec -->' => '<div style="-webkit-column-break-before:always"></div>',
@@ -96,14 +96,14 @@ class Pipeline {
   private function konvertovat(array $soubory, $cil) {
     $converter = escapeshellarg(__DIR__.'/wkhtmltopdf');
     $parametry = [
-      'orientation' => 'landscape',
-      'margin-top' => 0,
-      'margin-right' => 0,
-      'margin-bottom' => 0, // bug: dole bude vždy 0.5mm margin
-      'margin-left' => 0,
+      'orientation'   =>  'landscape',
+      'margin-top'    =>  0,
+      'margin-right'  =>  0,
+      'margin-bottom' =>  0, // bug: dole bude vždy 0.5mm margin
+      'margin-left'   =>  0,
       // následuje hack na počkání do dokončení js
-      'run-script' => "setInterval(function(){ if(document.readyState=='complete') window.status='done'; },100)",
-      'window-status' => 'done',
+      'run-script'    =>  "setInterval(function(){ if(document.readyState=='complete') window.status='done'; },100)",
+      'window-status' =>  'done',
     ];
 
     $parametrySh = '';
@@ -115,6 +115,20 @@ class Pipeline {
     $cilSh = escapeshellarg($cil);
     $volani = PHP_SAPI === 'cli' ? 'system' : 'exec'; // z commandline vypisovat výstup, na webu ne
     $volani("$converter $parametrySh $souborySh $cilSh 2>&1");
+  }
+
+  /**
+   * @return string relativní url od vygenerovaných html k obrázku k dané scéně
+   * a postavě
+   */
+  private function pruh($scena, $postava) {
+    foreach([
+      '/postavy/grafika/' . $scena . $postava . '.jpg', // specifický pruh
+      '/postavy/grafika/' . $scena . '.jpg', // obecný pruh k scéně
+    ] as $cesta) {
+      if(is_file(__DIR__ . '/..' . $cesta)) return $this->wwwRoot . $cesta;
+    }
+    throw new Exception('nenalezen soubor typu 1a.jpg ani 1.jpg potřebný pro pruh na postavě');
   }
 
   /** @return string cesta k vytvořenému temp souboru */
