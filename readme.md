@@ -1,3 +1,4 @@
+
 # Výstup na Ouranos
 
 Larp Výstup na Ouranos. Struktura dokumentů:
@@ -21,6 +22,9 @@ Výsledný dokument se vytvoří v složce `vystupy`.
 
 - přepsat u en postav jména na výlučně anglická
 - doladit formátování (markdown) en postav (viz cz)
+- projít TODOs v příručce (mj. jaké dokumenty se mají generovat)
+- generování příručky
 - v hudbě přejmenovat soubory a uklidit playlisty
 - stahování z youtube, pokud lze
 - udělat v readme en část
+- zvážit nějaké synchro s google docs (ve smyslu make, který natáhne obsah veřejného gdocu do souboru)
