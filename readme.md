@@ -24,6 +24,7 @@ Výsledný dokument se vytvoří v složce `vystupy`.
 - doladit formátování (markdown) en postav (viz cz)
 - projít TODOs v příručce (mj. jaké dokumenty se mají generovat)
 - generování příručky
+- naformátovat en příručku
 - v hudbě přejmenovat soubory a uklidit playlisty
 - stahování z youtube, pokud lze
 - udělat v readme en část
