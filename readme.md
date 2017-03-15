@@ -19,6 +19,8 @@ Výsledný dokument se vytvoří v složce `vystupy`.
 
 ## TODOs
 
+- přepsat u en postav jména na výlučně anglická
+- doladit formátování (markdown) en postav (viz cz)
 - v hudbě přejmenovat soubory a uklidit playlisty
 - stahování z youtube, pokud lze
-- make en
+- udělat v readme en část

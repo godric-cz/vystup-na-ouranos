@@ -4,11 +4,12 @@ class Pipeline {
 
   private
     $cil,
-    $slozkaTextu  = __DIR__ . '/../texty',
+    $slozkaTextu,
     $slozkaSablon = __DIR__ . '/../sablony',
     $wwwRoot      = '../..'; // relativní cesta od vygenerovaných html k rootu
 
-  function __construct() {
+  function __construct($slozkaTextu) {
+    $this->slozkaTextu = $slozkaTextu;
     $this->cil = __DIR__ . '/../vystupy/postavy.pdf';
   }
 
