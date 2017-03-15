@@ -1,0 +1,3 @@
+In this larp you will represent a soul that goes through different situations and encounters other souls. The soul is a certain essence of a person that does not necessarily carry their intellect or overall personality, but embodies a tendency, certain essential qualities, an ethos and a Platonic form that the person materializes.
+
+The soul is given the rest of its human and personal features after its incarnation. In its essence, the soul is immortal, but the bodies are mortal, so the soul can enter different bodies. The soul is formed and changed by its specific lives, but it does not necessarily keep the knowledge of the individual lives. However, a feeling of recall and a strong déjà vu can be triggered by the right stimuli.
