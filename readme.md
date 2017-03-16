@@ -20,8 +20,8 @@ Výsledný dokument se vytvoří v složce `vystupy`.
 
 ## TODOs
 
-- přepsat u en postav jména na výlučně anglická
-- doladit formátování (markdown) en postav (viz cz)
+- převést v en postavách uvozovky na anglické (resp na ASCII a v konvertoru na anglické) a změnit hypenaci na anglickou
+- vygrepovat TODO a opravit (vyskytuje se v textech)
 - projít TODOs v příručce (mj. jaké dokumenty se mají generovat)
 - generování příručky
 - naformátovat en příručku
