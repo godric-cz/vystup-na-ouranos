@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <style><?php include __DIR__.'/fonty.php' ?></style>
   <script src="<?="$sablonaDir/hyphenator.js"?>"></script>
-  <script src="<?="$sablonaDir/cs.js"?>"></script>
+  <script src="<?="$sablonaDir/$jazyk.js"?>"></script>
   <link  href="<?="$sablonaDir/styl.css"?>" rel="stylesheet">
   <script>
     Hyphenator.config({
-      defaultlanguage: 'cs'
+      defaultlanguage: '<?=$jazyk?>'
     });
     Hyphenator.run();
   </script>

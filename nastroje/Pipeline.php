@@ -3,14 +3,15 @@
 class Pipeline {
 
   private
-    $cil,
+    $cil          = __DIR__ . '/../vystupy/postavy.pdf',
+    $jazyk        = 'en-gb', // jazyk pro dělení slov
     $slozkaTextu,
     $slozkaSablon = __DIR__ . '/../sablony',
     $wwwRoot      = '../..'; // relativní cesta od vygenerovaných html k rootu
 
-  function __construct($slozkaTextu) {
+  function __construct($slozkaTextu, $jazyk) {
     $this->slozkaTextu = $slozkaTextu;
-    $this->cil = __DIR__ . '/../vystupy/postavy.pdf';
+    $this->jazyk = $jazyk;
   }
 
   function vytvorit() {
@@ -33,6 +34,7 @@ class Pipeline {
       $idSceny = substr($id, 0, 1);
       $pruh = $this->pruh($idSceny, $idPostavy);
       $sloupceTrida = $nahled ? 'sloupceWeb' : 'sloupceTisk'; // bug: sloupce na tisk fungují jinak jak v prohlížeči a proto je nutné použít hack
+      $jazyk = $this->jazyk;
       $md = strtr($md, [
         '<!-- novy sloupec -->' => '<div style="-webkit-column-break-before:always"></div>',
         '<!-- jmena postav -->' => isset($postavyJmena[$idPostavy]) ? '# '.implode('<br>', array_reverse($postavyJmena[$idPostavy])) : '',
