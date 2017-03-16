@@ -20,7 +20,6 @@ Výsledný dokument se vytvoří v složce `vystupy`.
 
 ## TODOs
 
-- převést v en postavách uvozovky a apostrofy na anglické
 - vygrepovat TODO a opravit (vyskytuje se v textech)
 - projít TODOs v příručce (mj. jaké dokumenty se mají generovat)
 - generování příručky
