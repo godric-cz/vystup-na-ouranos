@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/Michelf/MarkdownExtra.inc.php';
+require_once __DIR__ . '/pomocne.php';
 spl_autoload_register(function($jmenoTridy) {
   include __DIR__ . '/' . $jmenoTridy . '.php';
 });

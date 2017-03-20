@@ -7,6 +7,7 @@ class Pipeline {
     $jazyk        = 'en-gb', // jazyk pro dělení slov
     $slozkaTextu,
     $slozkaSablon = __DIR__ . '/../sablony',
+    $slozkaVystupu= __DIR__ . '/../vystupy',
     $wwwRoot      = '../..'; // relativní cesta od vygenerovaných html k rootu
 
   function __construct($slozkaTextu, $jazyk) {
@@ -15,6 +16,12 @@ class Pipeline {
   }
 
   function vytvorit() {
+    $this->vytvoritPostavy();
+    $this->vytvoritZpravu();
+    $this->uklid();
+  }
+
+  function vytvoritPostavy() {
 
     $parser = new Parsedown();
     $cil = $this->cil;
@@ -72,10 +79,10 @@ class Pipeline {
         mkdir(dirname($cil));
         if(PHP_SAPI !== 'cli') chmod(dirname($cil), 0777); // zpřístupnit všem, pokud zavoláno přes web
       }
-      $this->konvertovat($postavy, $cil);
+      $this->konvertovat($postavy, $cil, [
+        'orientation'   =>  'landscape',
+      ]);
     }
-
-    $this->uklid();
 
     // různé způsoby zobrazení výsledků
     if($pdf) {
@@ -87,6 +94,31 @@ class Pipeline {
       echo $html;
     }
 
+  }
+
+  function vytvoritZpravu() {
+    $prekladac = new \Michelf\MarkdownExtra;
+    $markdownObsah = file_get_contents($this->slozkaTextu . '/zprava-z-mereni.md');
+
+    // načíst proměnné pro šablonu
+    $promenneTextu = extract_front_matter($markdownObsah);
+    extract($promenneTextu);
+    $base = $this->wwwRoot . '/sablony/zprava/';
+    $htmlObsah = $text = $prekladac->transform($markdownObsah);
+    $htmlObsah = str_replace_nth('<table', '<table class="tab"', $htmlObsah, 0); // přidat spec. třídy tabulkám
+    $htmlObsah = str_replace_nth('<table', '<table class="podpisy"', $htmlObsah, 1);
+
+    // vygenerovat html výstup šablony
+    ob_start();
+    require $this->slozkaSablon . '/zprava/zprava.php';
+    $html = ob_get_clean();
+
+    // uložit do tmp souboru
+    $htmlFile = $this->tempSoubor();
+    file_put_contents($htmlFile, $html);
+
+    // převést html výstup na pdf
+    $this->konvertovat([$htmlFile], $this->slozkaVystupu . '/zprava-z-mereni.pdf', []);
   }
 
   /**
@@ -102,18 +134,18 @@ class Pipeline {
   /**
    * Překonvertuje soubory postav zadané v poli na pdf do složky $cil
    */
-  private function konvertovat(array $soubory, $cil) {
+  private function konvertovat(array $soubory, $cil, $parametry) {
     $converter = escapeshellarg(__DIR__ . '/wkhtmltopdf');
-    $parametry = [
-      'orientation'   =>  'landscape',
+    $parametry = array_merge([
+      // marginy řešit v rámci html
       'margin-top'    =>  0,
       'margin-right'  =>  0,
       'margin-bottom' =>  0, // bug: dole bude vždy 0.5mm margin
       'margin-left'   =>  0,
-      // následuje hack na počkání do dokončení js
+      // hack na počkání do dokončení js
       'run-script'    =>  "setInterval(function(){ if(document.readyState=='complete') window.status='done'; }, 100)",
       'window-status' =>  'done',
-    ];
+    ], $parametry);
 
     $parametrySh = '';
     foreach($parametry as $jmeno => $hodnota) {
