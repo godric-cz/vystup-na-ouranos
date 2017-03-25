@@ -16,6 +16,13 @@ Originální text používá font MS Calibri. Před vygenerováním zkopírovat 
 ```bash
 make
 ```
+
+Případně na windows, parametrem se nastaví jazyk `en` nebo `cz`:
+
+```
+php nastroje\vytvorit-dokumenty.php --lang=en
+```
+
 Výsledný dokument se vytvoří v složce `vystupy`.
 
 ## TODOs

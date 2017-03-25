@@ -135,7 +135,9 @@ class Pipeline {
    * Překonvertuje soubory postav zadané v poli na pdf do složky $cil
    */
   private function konvertovat(array $soubory, $cil, $parametry) {
-    $converter = escapeshellarg(__DIR__ . '/wkhtmltopdf');
+    $windowsOs = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN';
+    $binarka   = $windowsOs ? 'wkhtmltopdf.exe' : 'wkhtmltopdf';
+    $converter = escapeshellarg(__DIR__ . '/' . $binarka);
     $parametry = array_merge([
       // marginy řešit v rámci html
       'margin-top'    =>  0,
@@ -145,11 +147,14 @@ class Pipeline {
       // hack na počkání do dokončení js
       'run-script'    =>  "setInterval(function(){ if(document.readyState=='complete') window.status='done'; }, 100)",
       'window-status' =>  'done',
+      // bugfix různých velikostí win/linux
+      'zoom'          =>  $windowsOs ? 1.33 : null,
     ], $parametry);
 
     $parametrySh = '';
     foreach($parametry as $jmeno => $hodnota) {
-      $parametrySh .= '--' . $jmeno . ' ' . escapeshellarg($hodnota) . ' ';
+      if($hodnota === null) continue;
+      $parametrySh .= ' --' . $jmeno . ' ' . escapeshellarg($hodnota);
     }
 
     $souborySh = implode(' ', array_map('escapeshellarg', $soubory));
