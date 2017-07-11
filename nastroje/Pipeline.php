@@ -98,7 +98,11 @@ class Pipeline {
 
   function vytvoritZpravu() {
     $prekladac = new \Michelf\MarkdownExtra;
-    $markdownObsah = file_get_contents($this->slozkaTextu . '/zprava-z-mereni.md');
+    $markdownObsah = @file_get_contents($this->slozkaTextu . '/zprava-z-mereni.md');
+    if($markdownObsah === false) {
+      echo "notice: nenalezen soubor zprava-z-mereni.md, přeskakuji\n";
+      return;
+    }
 
     // načíst proměnné pro šablonu
     $promenneTextu = extract_front_matter($markdownObsah);
@@ -148,7 +152,7 @@ class Pipeline {
       'run-script'    =>  "setInterval(function(){ if(document.readyState=='complete') window.status='done'; }, 100)",
       'window-status' =>  'done',
       // bugfix různých velikostí win/linux
-      'zoom'          =>  $windowsOs ? 1.33 : null,
+      'zoom'          =>  1.33,
     ], $parametry);
 
     $parametrySh = '';
