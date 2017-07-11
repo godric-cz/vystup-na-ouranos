@@ -32,7 +32,7 @@
 
 <div class="zahlavi">
   <img src="logo.png">
-  <strong style="font-size: 1.8em"><?=$nazev?></strong><br>
+  <strong style="font-size: <?=$velikostTitulku ?? '1.8em'?>"><?=$nazev?></strong><br>
   <?=$podnazev?><br>
   <?=$adresa?>
 </div>
