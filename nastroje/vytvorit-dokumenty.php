@@ -1,17 +1,17 @@
 <?php
 
-require_once __DIR__ . '/Michelf/MarkdownExtra.inc.php';
+require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/pomocne.php';
-spl_autoload_register(function($jmenoTridy) {
-  include __DIR__ . '/' . $jmenoTridy . '.php';
+spl_autoload_register(function ($jmenoTridy) {
+    include __DIR__ . '/' . $jmenoTridy . '.php';
 });
 
-if(in_array('--lang=en', $argv)) {
-  $texty = __DIR__ . '/../texty-en';
-  $jazyk = 'en-gb';
+if (in_array('--lang=en', $argv)) {
+    $texty = __DIR__ . '/../texty-en';
+    $jazyk = 'en-gb';
 } else {
-  $texty = __DIR__ . '/../texty';
-  $jazyk = 'cs';
+    $texty = __DIR__ . '/../texty';
+    $jazyk = 'cs';
 }
 
 $pipeline = new Pipeline($texty, $jazyk);
