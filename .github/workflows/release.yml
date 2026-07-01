@@ -1,0 +1,53 @@
+name: Release on push to master
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Sestavit projekt
+      - name: Build
+        run: make
+
+      # Připravit nový tag a popis
+      - name: Fetch tags
+        run: git fetch --tags
+
+      - name: Generate version tag
+        id: version
+        run: |
+          YEAR=$(date +'%Y')
+          LAST=$(git tag -l "${YEAR}.*" | sed "s/${YEAR}\.//" | sort -n | tail -1)
+          if [ -z "$LAST" ]; then
+            NEXT=1
+          else
+            NEXT=$((LAST + 1))
+          fi
+          echo "tag=${YEAR}.${NEXT}" >> "$GITHUB_OUTPUT"
+
+      - name: Get commit message
+        id: commit
+        run: echo "message=$(git log -1 --pretty=%s)" >> "$GITHUB_OUTPUT"
+
+      # Vypublikovat release
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: Release ${{ steps.version.outputs.tag }}
+          body: ${{ steps.commit.outputs.message }}
+          files: vystupy/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
