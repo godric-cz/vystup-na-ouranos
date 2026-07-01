@@ -30,7 +30,7 @@ jobs:
         with:
           tag_name: ${{ steps.version.outputs.tag }}
           name: Release ${{ steps.version.outputs.tag }}
-          files: |
-            vystupy/*
+          body: ""
+          files: vystupy/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
