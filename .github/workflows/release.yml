@@ -17,14 +17,31 @@ jobs:
         with:
           fetch-depth: 0
 
-      # Sem přijde tvůj build - vygeneruje soubory, které chceš publikovat
+      # Sestavit projekt
       - name: Build
         run: make
 
+      # Připravit nový tag a popis
+      - name: Fetch tags
+        run: git fetch --tags
+
       - name: Generate version tag
         id: version
-        run: echo "tag=v$(date +'%Y.%m.%d')-${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+        run: |
+          YEAR=$(date +'%Y')
+          LAST=$(git tag -l "${YEAR}.*" | sed "s/${YEAR}\.//" | sort -n | tail -1)
+          if [ -z "$LAST" ]; then
+            NEXT=1
+          else
+            NEXT=$((LAST + 1))
+          fi
+          echo "tag=${YEAR}.${NEXT}" >> "$GITHUB_OUTPUT"
 
+      - name: Get commit message
+        id: commit
+        run: echo "message=$(git log -1 --pretty=%s)" >> "$GITHUB_OUTPUT"
+
+      # Vypublikovat release
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
